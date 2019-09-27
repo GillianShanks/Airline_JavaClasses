@@ -9,9 +9,9 @@ public class Flight {
     private String destination;
     private String departureTime;
 
-    public Flight(ArrayList<Passenger> passengerList, Plane plane, String flightNumber, String departureAirport, String destination, String departureTime) {
+    public Flight(Plane plane, String flightNumber, String departureAirport, String destination, String departureTime) {
 
-        this.passengerList = passengerList;
+        this.passengerList = new ArrayList<Passenger>();
         this.plane = plane;
         this.flightNumber = flightNumber;
         this.departureAirport = departureAirport;
@@ -41,5 +41,9 @@ public class Flight {
 
     public String getDepartureTime() {
         return departureTime;
+    }
+
+    public int remainingSeats() {
+        return plane.getCapacity() - this.passengerList.size();
     }
 }
