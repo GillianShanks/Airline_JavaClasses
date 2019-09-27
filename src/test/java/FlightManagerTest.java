@@ -36,7 +36,7 @@ public class FlightManagerTest {
     }
 
     @Test
-    public void canGetBaggageWeightBooked(){
+    public void canGetBaggageWeightBooked_1passenger(){
         //Given there is a flight
         assertNotNull(flight);
         //When 1 passenger with 3 bags is booked
@@ -44,5 +44,18 @@ public class FlightManagerTest {
         this.flight.book(passenger2);
         //Then baggage weight booked is 60
         assertEquals(60, flightManager.getBaggageWeightBooked());
+    }
+
+    @Test
+    public void canGetBaggageWeightBooked__2passengers(){
+        //Given there is a flight
+        assertNotNull(flight);
+        //When 2 passenger are booked
+        assertNotNull(passenger2);
+        assertNotNull(passenger1);
+        this.flight.book(passenger1);
+        this.flight.book(passenger2);
+        //Then baggage weight booked is 80
+        assertEquals(80, flightManager.getBaggageWeightBooked());
     }
 }
