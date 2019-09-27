@@ -12,11 +12,13 @@ public class FlightTest {
     Plane plane;
     Passenger passenger1;
     Passenger passenger2;
+    Passenger passenger3;
 
     @Before
     public void before(){
         passenger1 = new Passenger("Debbie McFarlane", 1);
         passenger2 = new Passenger("Gregor Talloy", 3);
+        passenger3 = new Passenger("Jeremy Kyle", 0);
 
         plane = new Plane(PlaneType.CONCHORD);
 
@@ -33,7 +35,33 @@ public class FlightTest {
         assertEquals(2, flight.remainingSeats());
     }
 
+    @Test
+    public void canBookPassenger__flightEmpty(){
+        //Given there is a flight
+        assertNotNull(flight);
+        //AND there is a passenger
+        assertNotNull(passenger1);
+        //When I book the passenger on the flight
+        flight.book(passenger1);
+        //Then the remaining seats will be 1
+        assertEquals(1, flight.remainingSeats());
 
+    }
+    @Test
+    public void canBookPassenger__flightFull(){
+        //Given there is a flight
+        assertNotNull(flight);
+        //AND there are three passengers
+        assertNotNull(passenger1);
+        //AND 2 are booked on the flight
+        flight.book(passenger1);
+        flight.book(passenger2);
+        //When I book the passenger on the flight
+        flight.book(passenger3);
+        //Then the remaining seats will be 1
+        assertEquals(0, flight.remainingSeats());
+
+    }
 
 
 }
