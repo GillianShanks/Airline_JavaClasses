@@ -1,6 +1,6 @@
 public enum PlaneType {
-    BOEING747(20, 2000),
-    Conchord(10, 1000);
+    BOEING747(10, 2000),
+    CONCHORD(2, 1000);
 
     private int capacity;
     private int totalWeight;
