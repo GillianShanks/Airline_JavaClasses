@@ -58,4 +58,18 @@ public class FlightManagerTest {
         //Then baggage weight booked is 80
         assertEquals(80, flightManager.getBaggageWeightBooked());
     }
+
+    @Test
+    public void canGetRemainingFlightBaggageWeight(){
+        //Given there is a flight
+        assertNotNull(flight);
+        //When 2 passenger are booked
+        assertNotNull(passenger2);
+        assertNotNull(passenger1);
+        this.flight.book(passenger1);
+        this.flight.book(passenger2);
+        //Then overall weight remaining is 420
+        assertEquals(420, flightManager.getRemainingBaggageWeight());
+    }
+
 }
