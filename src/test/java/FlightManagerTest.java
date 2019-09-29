@@ -1,16 +1,22 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Date;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 public class FlightManagerTest {
 
     FlightManager flightManager;
+    FlightManager flightManager2;
     Flight flight;
+    Flight flight2;
     Plane plane;
+    Plane plane2;
     Passenger passenger1;
     Passenger passenger2;
     Passenger passenger3;
@@ -22,12 +28,20 @@ public class FlightManagerTest {
         passenger3 = new Passenger("Jeremy Kyle", 0);
 
         plane = new Plane(PlaneType.CONCHORD);
+        plane2 = new Plane(PlaneType.BOEING747);
 
-        Date date = new Date(2019, 11, 17, 11, 0);
+        LocalDate date = LocalDate.of(2019, 11, 17);
+        LocalDateTime dateTime = date.atTime(11,0);
 
-        flight = new Flight(plane, "FR3180", "EDI", "ARN", date);
+        Date oldFashionedDate = Date.from(dateTime.toInstant(ZoneOffset.UTC));
+        long longDate = oldFashionedDate.getTime();
+        Date goodDate = new Date (longDate);
+
+        flight = new Flight(plane, "FR3180", "EDI", "ARN", goodDate);
+        flight2 = new Flight(plane2, "FR3180", "EDI", "ARN", goodDate);
 
         flightManager = new FlightManager(flight);
+        flightManager2 = new FlightManager(flight2);
     }
 
     @Test
@@ -76,4 +90,20 @@ public class FlightManagerTest {
         assertEquals(420, flightManager.getRemainingBaggageWeight());
     }
 
+    @Test
+    public void canSortBookedSeatsList() {
+        //Given there is a flight
+        assertNotNull(flight2);
+        //AND there are 3 passengers
+        assertNotNull(passenger1);
+        assertNotNull(passenger2);
+        assertNotNull(passenger3);
+        //When I book the passengers on the flight
+        flight2.book(passenger1);
+        flight2.book(passenger2);
+        flight2.book(passenger3);
+        //Then the each seat in the list will be be in ascending order
+        assertTrue(this.flightManager2.getSortedSeatsBooked().get(0) < this.flightManager2.getSortedSeatsBooked().get(1));
+        assertTrue(this.flightManager2.getSortedSeatsBooked().get(1) < this.flightManager2.getSortedSeatsBooked().get(2));
+    }
 }

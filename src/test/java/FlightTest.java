@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class FlightTest {
 
@@ -101,7 +100,7 @@ public class FlightTest {
     public void canGetPassengersUniqueSeatNumber(){
         //Given there is a flight
         assertNotNull(flight2);
-        //AND there is a passenger
+        //AND there are 3 passengers
         assertNotNull(passenger1);
         assertNotNull(passenger2);
         assertNotNull(passenger3);
@@ -114,5 +113,4 @@ public class FlightTest {
         assertEquals(this.flight2.getSeatsBooked().get(1), passenger2.getSeatBooked());
         assertEquals(this.flight2.getSeatsBooked().get(2), passenger3.getSeatBooked());
     }
-
 }
