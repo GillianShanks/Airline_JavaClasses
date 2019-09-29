@@ -51,6 +51,7 @@ public class Flight {
     public void book(Passenger passenger) {
         if (this.remainingSeats()>0) {
             this.passengerList.add(passenger);
+            passenger.setFlightBooked(this);
         }
     }
 }

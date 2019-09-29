@@ -81,5 +81,16 @@ public class FlightTest {
         assertEquals(new Date(1573988400000L), flight.getDepartureTime());
     }
 
+    @Test
+    public void canAddFlightToPassenger(){
+        //Given there is a flight
+        assertNotNull(flight);
+        //AND there is a passenger
+        assertNotNull(passenger1);
+        //When I book the passenger on the flight
+        flight.book(passenger1);
+        //Then the passenger's flight is updated
+        assertEquals(this.flight, passenger1.getFlightBooked());
+    }
 
 }
