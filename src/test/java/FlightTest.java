@@ -1,7 +1,13 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -22,7 +28,14 @@ public class FlightTest {
 
         plane = new Plane(PlaneType.CONCHORD);
 
-        flight = new Flight(plane, "FR3180", "EDI", "ARN", "1100");
+        LocalDate date = LocalDate.of(2019, 11, 17);
+        LocalDateTime dateTime = date.atTime(11,0);
+
+        Date oldFashionedDate = Date.from(dateTime.toInstant(ZoneOffset.UTC));
+        long longDate = oldFashionedDate.getTime();
+        Date goodDate = new Date (longDate);
+
+        flight = new Flight(plane, "FR3180", "EDI", "ARN", goodDate);
 
     }
 
@@ -61,6 +74,11 @@ public class FlightTest {
         //Then the remaining seats will be 1
         assertEquals(0, flight.remainingSeats());
 
+    }
+
+    @Test
+    public void canGetFlightTime(){
+        assertEquals(new Date(1573988400000L), flight.getDepartureTime());
     }
 
 

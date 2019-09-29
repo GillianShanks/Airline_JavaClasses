@@ -1,6 +1,8 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Date;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -21,7 +23,9 @@ public class FlightManagerTest {
 
         plane = new Plane(PlaneType.CONCHORD);
 
-        flight = new Flight(plane, "FR3180", "EDI", "ARN", "1100");
+        Date date = new Date(2019, 11, 17, 11, 0);
+
+        flight = new Flight(plane, "FR3180", "EDI", "ARN", date);
 
         flightManager = new FlightManager(flight);
     }
