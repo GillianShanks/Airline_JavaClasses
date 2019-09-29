@@ -15,7 +15,9 @@ import static org.junit.Assert.assertNotNull;
 public class FlightTest {
 
     Flight flight;
+    Flight flight2;
     Plane plane;
+    Plane plane2;
     Passenger passenger1;
     Passenger passenger2;
     Passenger passenger3;
@@ -27,6 +29,7 @@ public class FlightTest {
         passenger3 = new Passenger("Jeremy Kyle", 0);
 
         plane = new Plane(PlaneType.CONCHORD);
+        plane2 = new Plane(PlaneType.BOEING747);
 
         LocalDate date = LocalDate.of(2019, 11, 17);
         LocalDateTime dateTime = date.atTime(11,0);
@@ -36,6 +39,7 @@ public class FlightTest {
         Date goodDate = new Date (longDate);
 
         flight = new Flight(plane, "FR3180", "EDI", "ARN", goodDate);
+        flight2 = new Flight(plane2, "FR3180", "EDI", "ARN", goodDate);
 
     }
 
@@ -91,6 +95,24 @@ public class FlightTest {
         flight.book(passenger1);
         //Then the passenger's flight is updated
         assertEquals(this.flight, passenger1.getFlightBooked());
+    }
+
+    @Test
+    public void canGetPassengersUniqueSeatNumber(){
+        //Given there is a flight
+        assertNotNull(flight2);
+        //AND there is a passenger
+        assertNotNull(passenger1);
+        assertNotNull(passenger2);
+        assertNotNull(passenger3);
+        //When I book the passengers on the flight
+        flight2.book(passenger1);
+        flight2.book(passenger2);
+        flight2.book(passenger3);
+        //Then the passenger's seatNumber is updated
+        assertEquals(this.flight2.getSeatsBooked().get(0), passenger1.getSeatBooked());
+        assertEquals(this.flight2.getSeatsBooked().get(1), passenger2.getSeatBooked());
+        assertEquals(this.flight2.getSeatsBooked().get(2), passenger3.getSeatBooked());
     }
 
 }
