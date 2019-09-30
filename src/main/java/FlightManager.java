@@ -42,6 +42,10 @@ public class FlightManager {
         ArrayList<Passenger> sortedPassengerList = new ArrayList<Passenger>(this.flight.getPassengerList());
         boolean swapped = true;
 
+        if (sortedPassengerList.size() == 0){
+            swapped = false;
+        }
+
         while(swapped) {
             for (int i = 0; i < sortedPassengerList.size() - 1; i++) {
                 swapped = false;
