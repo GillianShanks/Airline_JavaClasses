@@ -108,7 +108,7 @@ public class FlightManagerTest {
     }
 
     @Test
-    public void canFindPassengerBySeatNumber(){
+    public void canFindPassengerBySeatNumber() {
         //Given there is a flight
         assertNotNull(flight2);
         //AND there are 3 passengers
@@ -123,6 +123,5 @@ public class FlightManagerTest {
         int seatNumber = passenger2.getSeatBooked();
         //Then I get passenger2 back
         assertEquals(passenger2, flightManager2.findPassengerBySeat(flightManager2.getSortedPassengersBooked(), seatNumber));
-
     }
 }
