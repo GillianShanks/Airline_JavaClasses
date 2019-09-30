@@ -47,11 +47,11 @@ public class FlightManager {
         }
 
         while(swapped) {
+            swapped = false;
             for (int i = 0; i < sortedPassengerList.size() - 1; i++) {
-                swapped = false;
-
+                Passenger temp = null;
                 if (sortedPassengerList.get(i).getSeatBooked() > sortedPassengerList.get(i+1).getSeatBooked()) {
-                    Passenger temp = sortedPassengerList.get(i);
+                    temp = sortedPassengerList.get(i);
                     sortedPassengerList.set(i, sortedPassengerList.get(i+1));
                     sortedPassengerList.set(i+1, temp);
                     swapped = true;
