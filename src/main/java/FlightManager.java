@@ -63,11 +63,29 @@ public class FlightManager {
         return sortedPassengersBooked;
     }
 
-//    public Passenger findPassengerBySeat(int seatNumber) {
-//        this.getSortedPassengersBooked();
-//        if (index >=0) {
-//            return this.getSortedPassengersBooked().get(index);
-//        }
-//        return null;
-//    }
+    public Passenger findPassengerBySeat( ArrayList<Passenger> array, int seatNumber) {
+        if (array.size() == 0){
+            return null;
+        }
+        int midIndex = 0;
+        if (array.size() >1) {
+            midIndex = (int) Math.ceil((double) array.size() / 2);
+        }
+
+        int midPoint = array.get(midIndex).getSeatBooked();
+
+        if (seatNumber == midPoint){
+            return array.get(midIndex);
+        }
+
+        ArrayList<Passenger> newSearchArea;
+
+        if (seatNumber < midPoint){
+            newSearchArea = new ArrayList<Passenger>(array.subList(0, midIndex));
+        } else {
+            newSearchArea = new ArrayList<Passenger>(array.subList(midIndex + 1, array.size()));
+        }
+        return findPassengerBySeat(newSearchArea, seatNumber);
+    }
+
 }
