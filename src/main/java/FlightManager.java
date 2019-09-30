@@ -1,16 +1,17 @@
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class FlightManager {
 
     private Flight flight;
     private int bagWeight;
-    private ArrayList<Integer> sortedSeatsBooked;
+    private ArrayList<Passenger> sortedPassengersBooked;
 
     public FlightManager(Flight flight) {
         this.flight = flight;
         this.bagWeight = 20;
-        this.sortedSeatsBooked = null;
+        this.sortedPassengersBooked = null;
     }
 
     public int getBaggageWeightPerPassenger() {
@@ -33,32 +34,40 @@ public class FlightManager {
         return baggageWeight - this.getBaggageWeightBooked();
     }
 
-    public void setSortedSeatsBooked(ArrayList<Integer> sortedSeatsBooked) {
-        this.sortedSeatsBooked = sortedSeatsBooked;
+    public void setSortedPassengersBooked(ArrayList<Passenger> sortedPassengersBooked) {
+        this.sortedPassengersBooked = sortedPassengersBooked;
     }
 
-    public void sortSeats(){
-        ArrayList<Integer> sortedSeatList = new ArrayList<Integer>(this.flight.getSeatsBooked());
+    public void sortPassengers(){
+        ArrayList<Passenger> sortedPassengerList = new ArrayList<Passenger>(this.flight.getPassengerList());
         boolean swapped = true;
 
         while(swapped) {
-            for (int i = 0; i < sortedSeatList.size() - 1; i++) {
+            for (int i = 0; i < sortedPassengerList.size() - 1; i++) {
                 swapped = false;
 
-                if (sortedSeatList.get(i) > sortedSeatList.get(i+1)) {
-                    int temp = sortedSeatList.get(i);
-                    sortedSeatList.set(i, sortedSeatList.get(i+1));
-                    sortedSeatList.set(i+1, temp);
+                if (sortedPassengerList.get(i).getSeatBooked() > sortedPassengerList.get(i+1).getSeatBooked()) {
+                    Passenger temp = sortedPassengerList.get(i);
+                    sortedPassengerList.set(i, sortedPassengerList.get(i+1));
+                    sortedPassengerList.set(i+1, temp);
                     swapped = true;
                 }
             }
         }
 
-        this.setSortedSeatsBooked(sortedSeatList);
+        this.setSortedPassengersBooked(sortedPassengerList);
     }
 
-    public ArrayList<Integer> getSortedSeatsBooked() {
-        this.sortSeats();
-        return sortedSeatsBooked;
+    public ArrayList<Passenger> getSortedPassengersBooked() {
+        this.sortPassengers();
+        return sortedPassengersBooked;
     }
+
+//    public Passenger findPassengerBySeat(int seatNumber) {
+//        this.getSortedPassengersBooked();
+//        if (index >=0) {
+//            return this.getSortedPassengersBooked().get(index);
+//        }
+//        return null;
+//    }
 }
